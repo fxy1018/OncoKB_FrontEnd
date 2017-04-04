@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link href="../bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet"/>
+    <link href="css/myStyle.css" rel="stylesheet">
     
     <script src="../bower_components/angular/angular.js"></script>
     <script src="app.js"></script>
@@ -14,40 +15,42 @@
     <title>OncoKB_Challenge</title>
 </head>
 <body ng-controller="GeneSearchController as model" >
+    <ul class="nav nav-tabs">
+        <li role="presentation" class="active"><a href="#">Search</a></li>
+        <li role="presentation"><a href="info.html">Info</a></li>
+    </ul>
+
     <div class="container-fluid">
         <div>
             <form>
                 <div class="form-group" >
                     <div class="input-group">
-                        <input ng-model="model.geneId" type="text" class="form-control" placeholder="Search Using Gene ID">
+                        <input ng-model="model.geneId" type="text" class="form-control" placeholder="Search Using Gene ID, eg: 673">
                         <span class="input-group-btn">
                             <button ng-click="model.findVariantById(model.geneId)" class="btn btn-default" type="button">Search</button>
                         </span>
                     </div>
                     <div ng-show="model.error" class="alert-danger">Can not get data, please enter another gene Id</div>
                 </div>
-                <div ng-show="model.variants" class="col-xs-6">
-                    <ul class="list-group">
-                        <li class="list-group-item">
-                            <div class="row">
-                                <div class="col-xs-5">Alteration</div>
-                                <div class="col-xs-2">Hugo</div>
-                                <div class="col-xs-2">GeneID</div>
-                                <div class="col-xs-3">OncoGene/TSG</div>
-                            </div>
-                        </li>
-                        <li class="list-group-item" >
-                            <div class="row" ng-repeat="variant in model.variants.data.data">
-                                <div class="col-xs-5">{{variant.alteration}}</div>
-                                <div class="col-xs-2">{{variant.gene.hugoSymbol}}</div>
-                                <div class="col-xs-2">{{variant.gene.entrezGeneId}}</div>
-                                <div class="col-xs-3">{{variant.gene.oncogene || variant.gene.tsg}}</div>
-                            </div>
-                        </li>
-                    </ul>
+                <div ng-show="model.variants" class="col-lg-6">
+                    <table class="table table-striped">
+                        <tr>
+                            <th class="col-lg-5">Alteration</th>
+                            <th class="col-lg-2 hidden-xs">Hugo</th>
+                            <th class="col-lg-2">GeneID</th>
+                            <th class="col-lg-3 hidden-xs">OncoGene/TSG</th>
+                        </tr>
+                        <tr ng-repeat="variant in model.variants.data.data">
+                            <td class="col-lg-5">{{variant.alteration}}</td>
+                            <td class="col-lg-2 hidden-xs">{{variant.gene.hugoSymbol}}</td>
+                            <td class="col-lg-2">{{variant.gene.entrezGeneId}}</td>
+                            <td class="col-lg-3 hidden-xs">{{variant.gene.oncogene || variant.gene.tsg}}</td>
+                        </tr>
+                    </table>
                 </div>
                 
-                <div class="col-xs-6 pull-right" >
+                <div ng-show="model.variants" class="col-lg-6 pull-right" >
+                    <h3 class="text-center">Bar Chart for Consequence</h3>
                     <canvas id="bar" class="chart chart-bar"
                             chart-data="model.data" chart-labels="model.labels">
                     </canvas>

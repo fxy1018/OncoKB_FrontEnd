@@ -2,22 +2,10 @@
     angular
         .module("OncoKB")
         .controller("GeneSearchController", GeneSearchController)
-        // .controller("ChartController", ChartController)
 
     function GeneSearchController($http) {
         var vm = this;
         vm.findVariantById = findVariantById;
-
-        function findAllVariants() {
-            var url = "http://oncokb.org/api/v1/variants";
-            $http
-                .get(url)
-                .then(function(result) {
-                    renderAllVariant(result);
-                }, function (error) {
-                    vm.error = "failed getting data";
-                });
-        }
 
         function findVariantById(geneId) {
             var url = "http://oncokb.org/api/v1/genes/" + geneId + "/variants";
@@ -57,9 +45,6 @@
             vm.data = data;
 
         }
-
-
-
     }
 
     
