@@ -1,8 +1,8 @@
 {
-  "name": "web-dev",
+  "name": "OncoKB_Challenge",
   "version": "1.0.0",
-  "description": "Web Dev at Northeastern University",
-  "main": "server.js",
+  "description": "OncoKB Challenge",
+  "main": "",
   "dependencies": {
     "angular-chart.js": "^1.1.1",
     "body-parser": "^1.15.1",
@@ -13,9 +13,6 @@
     "mongojs": "^2.4.0",
     "mongoose": "^4.4.15",
     "multer": "^1.2.0",
-    "passport": "^0.3.2",
-    "passport-google-oauth": "^1.0.0",
-    "passport-local": "^1.0.0",
     "q": "^1.4.1"
   },
   "devDependencies": {},
@@ -23,6 +20,6 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-  "author": "Jose G. Annunziato",
+  "author": "Xueyi Fan",
   "license": "ISC"
 }
