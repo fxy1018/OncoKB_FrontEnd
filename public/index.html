@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="OncoKB">
+<head>
+    <meta charset="UTF-8">
+    <link href="../bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet"/>
+    
+    <script src="../bower_components/angular/angular.js"></script>
+    <script src="app.js"></script>
+    <script src="../bower_components/chart.js/dist/Chart.min.js"></script>
+    <script src="../node_modules/angular-chart.js/dist/angular-chart.js"></script>
+    <script src="oncoKB.controller.js"></script>
+    
+    
+    <title>OncoKB_Challenge</title>
+</head>
+<body ng-controller="GeneSearchController as model" >
+    <div class="container-fluid">
+        <div>
+            <form>
+                <div class="form-group" >
+                    <div class="input-group">
+                        <input ng-model="model.geneId" type="text" class="form-control" placeholder="Search Using Gene ID">
+                        <span class="input-group-btn">
+                            <button ng-click="model.findVariantById(model.geneId)" class="btn btn-default" type="button">Search</button>
+                        </span>
+                    </div>
+                    <div ng-show="model.error" class="alert-danger">Can not get data, please enter another gene Id</div>
+                </div>
+                <div ng-show="model.variants" class="col-xs-6">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <div class="row">
+                                <div class="col-xs-5">Alteration</div>
+                                <div class="col-xs-2">Hugo</div>
+                                <div class="col-xs-2">GeneID</div>
+                                <div class="col-xs-3">OncoGene/TSG</div>
+                            </div>
+                        </li>
+                        <li class="list-group-item" >
+                            <div class="row" ng-repeat="variant in model.variants.data.data">
+                                <div class="col-xs-5">{{variant.alteration}}</div>
+                                <div class="col-xs-2">{{variant.gene.hugoSymbol}}</div>
+                                <div class="col-xs-2">{{variant.gene.entrezGeneId}}</div>
+                                <div class="col-xs-3">{{variant.gene.oncogene || variant.gene.tsg}}</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="col-xs-6 pull-right" >
+                    <canvas id="bar" class="chart chart-bar"
+                            chart-data="model.data" chart-labels="model.labels">
+                    </canvas>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
